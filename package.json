@@ -1,0 +1,16 @@
+{
+  "name": "gittogether",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "chrome-types": "^0.1.425"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "chrome-types": "^0.1.425",
+    "ics": "^3.11.0"
+  },
+  "types": "chrome"
+}
