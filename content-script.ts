@@ -1,4 +1,16 @@
 import type { CalTransfer } from "./transfer";
+import insultsUntyped from "./insults.json";
+
+interface DeptInsults {
+  [k: string]: string;
+  default: string;
+}
+
+interface InsultData {
+  [k: string]: DeptInsults,
+}
+
+const insults: InsultData = insultsUntyped;
 
 function saveString(data: string) {
   const blob = new Blob([data], { type: "text/plain" });
@@ -20,6 +32,28 @@ function parseCarletonDate(date: string): Date | undefined {
   return new Date(`${year}-${month}-${day}`);
 }
 
+function getInsult(department: string | undefined, course: string | undefined): string | undefined {
+  if (!department) {
+    return undefined;
+  }
+  const deptInsults = insults[department];
+  if (!deptInsults) {
+    return undefined;
+  }
+  let deptInsult = deptInsults.default;
+  if (!course) {
+    return deptInsult;
+  } else {
+    let classInsult = deptInsults[course];
+    if (classInsult) {
+      return classInsult
+    } else {
+      return deptInsult;
+    }
+  }
+}
+
+
 function main() {
   const captionsNodeList = document.querySelectorAll("caption");
   const captions = Array.from(captionsNodeList);
@@ -31,7 +65,7 @@ function main() {
   const rawTable = enrolledCoursesCaption.parentNode;
   const tBody = rawTable?.querySelectorAll("tbody").item(0);
   let classes: CalTransfer[] = [];
-  
+
   for (const row of tBody?.childNodes || []) {
     const timeElementList = (row.childNodes.item(9) as HTMLElement).querySelectorAll("li");
     const timeSet = Array.from(timeElementList).map((v) => v.textContent).filter((v) => v.length != 0 && /\s/g.test(v)) ?? [];
@@ -51,8 +85,19 @@ function main() {
       end: endDate
     });
   }
-  saveString(JSON.stringify(classes));
 
+
+  const splitCourseInfo = classes[Math.floor(Math.random() * classes.length)]?.name?.split(" ");
+  if (splitCourseInfo) {
+    const [insultDept, insultCourse] = splitCourseInfo;
+    const insult = getInsult(insultDept, insultCourse);
+    if (insult) {
+      alert(insult);
+    }
+  }
+
+
+  saveString(JSON.stringify(classes));
 }
 
 main();
