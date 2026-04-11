@@ -8,6 +8,13 @@ function saveString(data) {
   a.click();
   URL.revokeObjectURL(url);
 }
+function parseCarletonDate(date) {
+  const [month, day, year] = date.split("/").map((v) => new Number(v?.trim()));
+  if (!month || !day || !year) {
+    return;
+  }
+  return new Date(`${year}-${month}-${day}`);
+}
 function main() {
   const captionsNodeList = document.querySelectorAll("caption");
   const captions = Array.from(captionsNodeList);
@@ -22,9 +29,17 @@ function main() {
   for (const row of tBody?.childNodes || []) {
     const timeElementList = row.childNodes.item(9).querySelectorAll("li");
     const timeSet = Array.from(timeElementList).map((v) => v.textContent).filter((v) => v.length != 0 && /\s/g.test(v)) ?? [];
+    const startDate = parseCarletonDate(row.childNodes.item(11).textContent || "unknown");
+    const endDate = parseCarletonDate(row.childNodes.item(12).textContent || "unknown");
+    if (!startDate || !endDate) {
+      alert("Invalid dates");
+      return;
+    }
     classes.push({
       name: row.childNodes.item(1).textContent || "unknown",
-      times: timeSet
+      times: timeSet,
+      start: startDate,
+      end: endDate
     });
   }
   saveString(JSON.stringify(classes));
