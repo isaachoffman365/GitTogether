@@ -9,7 +9,6 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "chrome-types": "^0.1.425",
     "ics": "^3.11.0"
   },
   "types": "chrome"
