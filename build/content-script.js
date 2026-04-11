@@ -4492,7 +4492,7 @@ var require_dist2 = __commonJS((exports) => {
 // insults.json
 var insults_default = {
   CS: {
-    default: '"Take a shower. Seriously." - Tanya Amert, 2026'
+    default: `You're taking CS? "Take a shower. Seriously." - Tanya Amert, 2026`
   },
   LING: {
     default: 'Did you know that the plural of "wug" is "wugs"?'
@@ -4504,22 +4504,22 @@ var insults_default = {
     default: "They say to study history or find yourself repeating it but all that it prepares you for is 40 years of teaching it."
   },
   SPAN: {
-    default: "Well. You chose the default."
+    default: "Spanish? Well. You chose the default. Or it chose you."
   },
   MATH: {
-    default: "Prove that a cow is not spherical."
+    default: "MATH? Prove that a cow is not spherical."
   },
   PHYS: {
-    default: "Assume a spherical cow, then push it up a hill."
+    default: "For your physics final, assume a spherical cow, then push it up a hill."
   },
   PSYC: {
-    default: "So how did that make you feel?"
+    default: "PSYC? So how does that make you feel?"
   },
   MUSC: {
-    default: "Someone's a child prodigy."
+    default: "Violin? Viola? Someone's a child prodigy."
   },
   ARTS: {
-    default: "This page intentionally left blank."
+    default: "ARTS: This page intentionally left blank."
   },
   GWSS: {
     default: "Bell Hooks would be proud."
@@ -4531,16 +4531,16 @@ var insults_default = {
     default: "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
   },
   STAT: {
-    default: "This is going to throw off the standard deviation..."
+    default: "Three standard deviations below average."
   },
   CGSC: {
     default: "A jack of all trades is a master of none, but oftentimes better than a master of one."
   },
   BIOL: {
-    default: "See you in medical school!"
+    default: "BIOL? See you in medical school!"
   },
   CHEM: {
-    default: "Potion seller, I want your strongest potions."
+    default: "Chemistry is still just alchemy. Figured out how to make gold yet?"
   },
   PHIL: {
     default: "You think therefore you am."
