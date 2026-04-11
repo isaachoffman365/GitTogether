@@ -1,5 +1,7 @@
 import type { CalTransfer } from "./transfer";
 import insultsUntyped from "./insults.json";
+import "./createics";
+import { writeCalendarFile } from "./createics";
 
 interface DeptInsults {
   [k: string]: string;
@@ -7,7 +9,7 @@ interface DeptInsults {
 }
 
 interface InsultData {
-  [k: string]: DeptInsults,
+  [k: string]: DeptInsults;
 }
 
 const insults: InsultData = insultsUntyped;
@@ -18,7 +20,7 @@ function saveString(data: string) {
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = "schedule.json";
+  a.download = "courses.ics";
   a.click();
 
   URL.revokeObjectURL(url);
@@ -32,7 +34,10 @@ function parseCarletonDate(date: string): Date | undefined {
   return new Date(`${year}-${month}-${day}`);
 }
 
-function getInsult(department: string | undefined, course: string | undefined): string | undefined {
+function getInsult(
+  department: string | undefined,
+  course: string | undefined,
+): string | undefined {
   if (!department) {
     return undefined;
   }
@@ -46,18 +51,19 @@ function getInsult(department: string | undefined, course: string | undefined): 
   } else {
     let classInsult = deptInsults[course];
     if (classInsult) {
-      return classInsult
+      return classInsult;
     } else {
       return deptInsult;
     }
   }
 }
 
-
-function main() {
+async function main() {
   const captionsNodeList = document.querySelectorAll("caption");
   const captions = Array.from(captionsNodeList);
-  const enrolledCoursesCaption = captions.find((v) => v.textContent.includes("My Enrolled Courses"));
+  const enrolledCoursesCaption = captions.find((v) =>
+    v.textContent.includes("My Enrolled Courses"),
+  );
   if (!enrolledCoursesCaption) {
     alert("Could not find table.");
     return;
@@ -67,11 +73,21 @@ function main() {
   let classes: CalTransfer[] = [];
 
   for (const row of tBody?.childNodes || []) {
-    const timeElementList = (row.childNodes.item(9) as HTMLElement).querySelectorAll("li");
-    const timeSet = Array.from(timeElementList).map((v) => v.textContent).filter((v) => v.length != 0 && /\s/g.test(v)) ?? [];
+    const timeElementList = (
+      row.childNodes.item(9) as HTMLElement
+    ).querySelectorAll("li");
+    const timeSet =
+      Array.from(timeElementList)
+        .map((v) => v.textContent)
+        .filter((v) => v.length != 0 && /\s/g.test(v)) ?? [];
 
-    const startDate = parseCarletonDate(row.childNodes.item(11).textContent || "unknown");
-    const endDate = parseCarletonDate(row.childNodes.item(12).textContent || "unknown");
+    const startDate = parseCarletonDate(
+      row.childNodes.item(11).textContent || "unknown",
+    );
+    const endDate = parseCarletonDate(
+      row.childNodes.item(12).textContent || "unknown",
+    );
+    endDate?.setDate(endDate.getDate() - 5); // Number of days in reading days
 
     if (!startDate || !endDate) {
       alert("Invalid dates");
@@ -82,12 +98,12 @@ function main() {
       name: row.childNodes.item(1).textContent || "unknown",
       times: timeSet,
       start: startDate,
-      end: endDate
+      end: endDate,
     });
   }
 
-
-  const splitCourseInfo = classes[Math.floor(Math.random() * classes.length)]?.name?.split(" ");
+  const splitCourseInfo =
+    classes[Math.floor(Math.random() * classes.length)]?.name?.split(" ");
   if (splitCourseInfo) {
     const [insultDept, insultCourse] = splitCourseInfo;
     const insult = getInsult(insultDept, insultCourse);
@@ -96,9 +112,13 @@ function main() {
     }
   }
 
+  const calFile = await writeCalendarFile(classes);
+  if (!calFile) {
+    alert("Failed to parse dates");
+    return;
+  }
 
-  saveString(JSON.stringify(classes));
+  saveString(calFile);
 }
 
-main();
-
+main().then(() => {});

@@ -1,14 +1,14 @@
 {
-    "CS": {
-        "default": "Ohh, CS. What a nerd you are."
-    },
-    "LING": {
-        "default": "Did you hear linguistics was the easiest major or something?"
-    },
-    "GERM": {
-        "default": "oh ja loek att mich ich kan deutsch"
-    },
-    "HIST": {
-        "default": "They say to study history or find yourself repeating it but all that it prepares you for is 40 years of teaching it."
-    }
+  "CS": {
+    "default": "Ohh, CS. What a nerd you are."
+  },
+  "LING": {
+    "default": "Did you hear linguistics was the easiest major or something?"
+  },
+  "GERM": {
+    "default": "oh ja loek att mich ich kan deutsch"
+  },
+  "HIST": {
+    "default": "They say to study history or find yourself repeating it but all that it prepares you for is 40 years of teaching it."
+  }
 }
