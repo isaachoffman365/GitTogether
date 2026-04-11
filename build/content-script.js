@@ -1,4 +1,21 @@
+// insults.json
+var insults_default = {
+  CS: {
+    default: "Ohh, CS. What a nerd you are."
+  },
+  LING: {
+    default: "Did you hear linguistics was the easiest major or something?"
+  },
+  GERM: {
+    default: "oh ja loek att mich ich kan deutsch"
+  },
+  HIST: {
+    default: "They say to study history or find yourself repeating it but all that it prepares you for is 40 years of teaching it."
+  }
+};
+
 // content-script.ts
+var insults = insults_default;
 function saveString(data) {
   const blob = new Blob([data], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
@@ -14,6 +31,26 @@ function parseCarletonDate(date) {
     return;
   }
   return new Date(`${year}-${month}-${day}`);
+}
+function getInsult(department, course) {
+  if (!department) {
+    return;
+  }
+  const deptInsults = insults[department];
+  if (!deptInsults) {
+    return;
+  }
+  let deptInsult = deptInsults.default;
+  if (!course) {
+    return deptInsult;
+  } else {
+    let classInsult = deptInsults[course];
+    if (classInsult) {
+      return classInsult;
+    } else {
+      return deptInsult;
+    }
+  }
 }
 function main() {
   const captionsNodeList = document.querySelectorAll("caption");
@@ -41,6 +78,14 @@ function main() {
       start: startDate,
       end: endDate
     });
+  }
+  const splitCourseInfo = classes[Math.floor(Math.random() * classes.length)]?.name?.split(" ");
+  if (splitCourseInfo) {
+    const [insultDept, insultCourse] = splitCourseInfo;
+    const insult = getInsult(insultDept, insultCourse);
+    if (insult) {
+      alert(insult);
+    }
   }
   saveString(JSON.stringify(classes));
 }
