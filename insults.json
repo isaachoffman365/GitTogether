@@ -10,5 +10,23 @@
   },
   "HIST": {
     "default": "They say to study history or find yourself repeating it but all that it prepares you for is 40 years of teaching it."
+  },
+  "SPAN": {
+    "default": "Well. You chose the default."
+  },
+  "MATH": {
+    "default": "Prove that a cow is not spherical."
+  },
+  "PHYS": {
+    "default": "Assume a spherical cow, then push it up a hill."
+  },
+  "PSYC": {
+    "default": "So how did that make you feel?"
+  },
+  "MUSC": {
+    "default": "Someone's a child prodigy."
+  },
+  "ARTS": {
+    "default": "This page intentionally left blank."
   }
 }
