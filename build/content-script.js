@@ -4518,8 +4518,14 @@ var insults_default = {
   MUSC: {
     default: "Violin? Viola? Someone's a child prodigy."
   },
+  MUSL: {
+    default: "Violin? Viola? Someone's a child prodigy."
+  },
   ARTS: {
     default: "ARTS: This page intentionally left blank."
+  },
+  ARTH: {
+    default: "Art History? How aesthetic."
   },
   GWSS: {
     default: "Bell Hooks would be proud."
@@ -4537,13 +4543,25 @@ var insults_default = {
     default: "A jack of all trades is a master of none, but oftentimes better than a master of one."
   },
   BIOL: {
-    default: "BIOL? See you in medical school!"
+    default: "Bio? See you in medical school!"
   },
   CHEM: {
     default: "Chemistry is still just alchemy. Figured out how to make gold yet?"
   },
   PHIL: {
     default: "You think therefore you am."
+  },
+  PE: {
+    default: "PE? Ready to get that body moving?"
+  },
+  GEO: {
+    default: "Geo? Gneiss!"
+  },
+  RELG: {
+    default: "Pray to win."
+  },
+  CAMS: {
+    default: "Your life is a movie."
   }
 };
 
